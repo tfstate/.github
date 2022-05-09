@@ -5,7 +5,7 @@
 Features:
 
 - Zero Bootstrapping: any valid GitHub token can access this API
-- Encrypted State + Locking
+- Encrypted State
 - State Locking
 - Highly available [Hosted API](https://api.tfstate.dev/github/swagger.html) in AWS Lambda + API Gateway
 
