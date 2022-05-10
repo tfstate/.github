@@ -1,11 +1,11 @@
 # TFstate.dev ✨
 
-**TFstate.dev** is a free [Terraform State Provider](https://www.terraform.io/language/settings/backends/http) and [Open Source](https://github.com/tfstate/github-sls-rest-api) Service for secure Terraform Remote State hosting using a GitHub Token, courtsey of [Scaffoldly](https://scaffold.ly)
+**TFstate.dev** is a free [Terraform State Provider](https://www.terraform.io/language/settings/backends/http) and [Open Source Hosted Service](https://github.com/tfstate/github-sls-rest-api) for secure Terraform Remote State hosting using a GitHub Token, courtsey of [Scaffoldly](https://scaffold.ly)
 
 Features:
 
-- Zero Bootstrapping: any valid GitHub token can access this API
-- Encrypted State
+- GitHub Token used for Authentication and Authorization to Terraform State
+- Encrypted State in Amazon S3 using Amazon KMS
 - State Locking
 - Highly available [Hosted API](https://api.tfstate.dev/github/swagger.html) in AWS Lambda + API Gateway
 
@@ -49,26 +49,54 @@ terraform plan
 terraform apply
 ```
 
-_Note_: If the token used has rotated or been changed (such as a [GitHub Actions Secret](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)), add the `-reconfigure` flag.
+_Note_: If the token previously used has rotated or been changed (such as a [GitHub Actions Secret](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)), add the `-reconfigure` flag.
 
-### Additional Topics
+---
 
-- [Migrating Existing State](migrating.md)
-- [Using `terraform_remote_state`](remote_state.md)
-- [Workspaces](workspaces.md)
-- [Unlocking State](unlocking.md)
+## Additional Topics
 
-### Premium Features (Beta)
+The following sections detail specifics on how to use TFstate.dev on a regular basis.
 
-- [Planfile Hosting](planfile_hosting.md)
+Is there anything we haven't covered or do you need additional help? Message us on [Gitter](https://gitter.im/tfstate/community).
 
-Need additional help? Message us on [Gitter](https://gitter.im/tfstate/community).
+### Migrating to TFstate.dev
+
+First, change your Terraform Configuration to use TFstate.dev as the Backend:
+
+```hcl
+terraform {
+  backend "http" {
+    address        = "https://api.tfstate.dev/github/v1"
+    lock_address   = "https://api.tfstate.dev/github/v1/lock"
+    unlock_address = "https://api.tfstate.dev/github/v1/lock"
+    lock_method    = "PUT"
+    unlock_method  = "DELETE"
+    username       = "{your-github-org}/{your-github-repo}"
+  }
+}
+```
+
+Then initalize Terraform and migrate state:
+
+```bash
+export TF_HTTP_PASSWORD="{your-github-token}"
+terraform init -migrate-state
+terraform plan
+```
+
+### Using `terraform_remote_state`
+
+### Workspaces
+
+### Manually Locking/Unlocking State
 
 ---
 
 ## Contributing 💪
 
-TODO
+TODO - this README
+TODO - github-sls-rest-api
+TODO - donations
 
 ---
 
