@@ -153,6 +153,8 @@ Visit [TFstate.dev on OpenCollective](https://opencollective.com/tfstate).
 
 ---
 
+{% raw %}{% seo %}{% endraw %}
+
 ## About TFstate.dev 📚
 
 TFstate.dev was created to simplify the number of prerequisties required to use Terraform. We desire to extend the functionality of a GitHub token beyond GitHub, and this allows adoption of Terraform along with secure state storage with the one-and-only prerequisite to generate a GitHub token and begin using Terraform.
