@@ -1,8 +1,6 @@
-{% raw %}{% seo %}{% endraw %}
-
 # TFstate.dev ✨
 
-![GitHub Repo stars](https://img.shields.io/github/stars/tfstate/github-sls-rest-api?style=social) ![Gitter](https://img.shields.io/gitter/room/tfstate/community)
+[![Gitter](https://img.shields.io/gitter/room/tfstate/community)](https://gitter.im/tfstate/community)
 
 **TFstate.dev** is a free [Terraform State Provider](https://www.terraform.io/language/settings/backends/http) and [Open Source Hosted Service](https://github.com/tfstate/github-sls-rest-api) for secure Terraform Remote State hosting using a GitHub Token, courtsey of [Scaffoldly](https://scaffold.ly)
 
