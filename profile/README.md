@@ -17,6 +17,8 @@ Features:
 
 First, a GitHub token is needed. This can be a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), a [GitHub Actions Secret](https://docs.github.com/en/actions/security-guides/automatic-token-authentication), or any other form of [GitHub Oauth Token](https://github.blog/2021-04-05-behind-githubs-new-authentication-token-formats/). At a minimum, the token needs `repo:read` access for the configured repository.
 
+➡ See our [example repository](https://github.com/tfstate/example).
+
 To use TFstate.dev in Terraform, add the following [backend configuration](https://www.terraform.io/language/settings/backends/http) to Terraform:
 
 ```hcl
@@ -49,7 +51,7 @@ terraform plan
 terraform apply
 ```
 
-_Note_: If the token previously used has rotated or been changed (such as a [GitHub Actions Secret](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)), add the `-reconfigure` flag.
+⚠️ _Note_: If the token previously used has rotated or been changed (such as a [GitHub Actions Secret](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)), add the `-reconfigure` flag.
 
 ---
 
@@ -86,17 +88,65 @@ terraform plan
 
 ### Using `terraform_remote_state`
 
-### Workspaces
+Using the `terraform_remote_state` data resource is possible for state sharing.
 
-### Manually Locking/Unlocking State
+Use the `TF_HTTP_PASSWORD` is required, as the GitHub token should NEVER be checked into Source Control.
+
+➡ See our [example remote repository](https://github.com/tfstate/example-remote), which pulls state from [`example`](https://github.com/tfstate/example-remote).
+
+Example:
+
+```hcl
+data "terraform_remote_state" "example" {
+  backend = "http"
+
+  config = {
+    address        = "https://api.tfstate.dev/github/v1"
+    username       = "{your-github-org}/{other-github-repo}"
+  }
+}
+```
+
+Then plan and apply operations will work:
+
+```bask
+export TF_HTTP_PASSWORD={your-github-token}
+terraform plan
+terraform apply
+```
+
+### ADVANCED: Manually Unlocking State
+
+If locking or unlocking state is necssary, use the `terraform force-unlock` command:
+
+```bash
+terraform force-unlock {lock-id}
+```
 
 ---
 
 ## Contributing 💪
 
-TODO - this README
-TODO - github-sls-rest-api
-TODO - donations
+### Readme/Docs
+
+We'd love PRs to make things clearer for users. For TFstate.dev there's two important READMEs:
+
+- [This Readme](https://github.com/tfstate/.github/blob/main/profile/README.md) (Also the tfstate.dev website)
+- [GitHub SLS REST API](https://github.com/tfstate/github-sls-rest-api/blob/main/README.md)
+
+### Backends
+
+- [Githb SLS REST API](https://github.com/tfstate/github-sls-rest-api)
+  - This is the Open Source Backend for TFstate.dev
+  - Follow the [Contributing Guidelines](https://github.com/tfstate/github-sls-rest-api/blob/main/CONTRIBUTING.md)
+
+### Financial Support
+
+TFstate.dev is provided as a free Hosted API and Open Source project to accelerate the proper usage of Terraform and minimize dependencies.
+
+Scaffoldly generously hosts this API free-of-charge, but donations are graciously acceepted to help cover costs.
+
+Visit [TFstate.dev on OpenCollective](https://opencollective.com/tfstate).
 
 ---
 
