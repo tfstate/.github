@@ -1,4 +1,8 @@
+{% raw %}{% seo %}{% endraw %}
+
 # TFstate.dev ✨
+
+![GitHub Repo stars](https://img.shields.io/github/stars/tfstate/github-sls-rest-api?style=social) ![Gitter](https://img.shields.io/gitter/room/tfstate/community)
 
 **TFstate.dev** is a free [Terraform State Provider](https://www.terraform.io/language/settings/backends/http) and [Open Source Hosted Service](https://github.com/tfstate/github-sls-rest-api) for secure Terraform Remote State hosting using a GitHub Token, courtsey of [Scaffoldly](https://scaffold.ly)
 
@@ -8,6 +12,7 @@ Features:
 - Encrypted State in Amazon S3 using Amazon KMS
 - State Locking
 - Highly available [Hosted API](https://api.tfstate.dev/github/swagger.html) in AWS Lambda + API Gateway
+- Plug and Play: Only a GitHub Token is needed to use TFstate.dev
 
 ✅ We do not store or save the provided GitHub token.
 
@@ -92,7 +97,7 @@ Using the `terraform_remote_state` data resource is possible for state sharing.
 
 Use the `TF_HTTP_PASSWORD` is required, as the GitHub token should NEVER be checked into Source Control.
 
-➡ See our [example remote repository](https://github.com/tfstate/example-remote), which pulls state from [`example`](https://github.com/tfstate/example-remote).
+➡ See our [example remote repository](https://github.com/tfstate/example-remote), which pulls state from [example](https://github.com/tfstate/example).
 
 Example:
 
@@ -159,3 +164,5 @@ Scaffoldly is a developer of various tooling designed to ease and simplify the a
 Want to get in touch? Message us on [Gitter](https://gitter.im/tfstate/community).
 
 Copyright 2022 Scaffoldly LLC
+
+![](https://sly-dev.scaffold.ly/auth/px?tfstate-profile)
